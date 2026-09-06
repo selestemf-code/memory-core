@@ -206,9 +206,9 @@ const friends = [
 
 const scenes = [
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 01
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "images",
@@ -244,9 +244,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 02
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "video",
@@ -283,9 +283,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 03
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "video",
@@ -333,9 +333,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 04
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "images",
@@ -379,9 +379,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 05
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "video",
@@ -413,9 +413,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 06
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "video",
@@ -477,10 +477,9 @@ const scenes = [
     },
 
 
-    /* -----------------------------------------
+    /* =====================================
        CHAPTER 07
-       THE PEOPLE
-    ----------------------------------------- */
+    ===================================== */
 
     {
         type: "message",
@@ -577,9 +576,10 @@ function renderScenes() {
 
         section.dataset.index = index;
 
-        /* =========================
+
+        /* =================================
            IMAGE SCENE
-        ========================== */
+        ================================= */
 
         if (scene.type === "images") {
 
@@ -595,13 +595,16 @@ function renderScenes() {
 
             wrapper.appendChild(label);
 
+
             const grid = document.createElement("div");
 
             grid.className = "image-grid";
 
+
             if (scene.images.length >= 5) {
                 grid.classList.add("five");
             }
+
 
             scene.images.forEach(image => {
 
@@ -609,15 +612,19 @@ function renderScenes() {
 
                 img.className = "memory-image";
 
-                img.src = `assets/images/scenes/${image}`;
+                img.src =
+                    `assets/images/scenes/${image}`;
 
                 img.alt = "Memory";
 
                 img.loading = "eager";
 
+                img.draggable = false;
+
                 grid.appendChild(img);
 
             });
+
 
             wrapper.appendChild(grid);
 
@@ -625,9 +632,9 @@ function renderScenes() {
         }
 
 
-        /* =========================
+        /* =================================
            MESSAGE SCENE
-        ========================== */
+        ================================= */
 
         else if (scene.type === "message") {
 
@@ -635,11 +642,13 @@ function renderScenes() {
 
             wrapper.className = "message-scene";
 
+
             const label = document.createElement("p");
 
             label.className = "chapter-label";
 
             label.textContent = scene.chapter;
+
 
             const title = document.createElement("h2");
 
@@ -647,11 +656,13 @@ function renderScenes() {
 
             title.textContent = scene.title;
 
+
             const text = document.createElement("p");
 
             text.className = "message-text";
 
             text.innerHTML = scene.text;
+
 
             wrapper.appendChild(label);
 
@@ -663,9 +674,9 @@ function renderScenes() {
         }
 
 
-        /* =========================
+        /* =================================
            VIDEO SCENE
-        ========================== */
+        ================================= */
 
         else if (scene.type === "video") {
 
@@ -673,17 +684,20 @@ function renderScenes() {
 
             wrapper.className = "video-container";
 
+
             const label = document.createElement("p");
 
             label.className = "chapter-label";
 
             label.textContent = scene.chapter;
 
+
             const video = document.createElement("video");
 
             video.className = "memory-video";
 
-            video.src = `assets/videos/scenes/${scene.video}`;
+            video.src =
+                `assets/videos/scenes/${scene.video}`;
 
             video.controls = true;
 
@@ -693,11 +707,13 @@ function renderScenes() {
 
             video.setAttribute("playsinline", "");
 
+
             wrapper.appendChild(label);
 
             wrapper.appendChild(video);
 
             section.appendChild(wrapper);
+
 
             video.addEventListener("play", () => {
 
@@ -707,13 +723,17 @@ function renderScenes() {
 
             });
 
+
             video.addEventListener("pause", () => {
 
                 if (!video.ended) {
+
                     fadeMusic(NORMAL_VOLUME, 500);
+
                 }
 
             });
+
 
             video.addEventListener("ended", () => {
 
@@ -724,15 +744,16 @@ function renderScenes() {
         }
 
 
-        /* =========================
+        /* =================================
            FRIEND SCENE
-        ========================== */
+        ================================= */
 
         else if (scene.type === "friend") {
 
             const wrapper = document.createElement("div");
 
             wrapper.className = "friend-profile";
+
 
             const number = document.createElement("p");
 
@@ -741,11 +762,13 @@ function renderScenes() {
             number.textContent =
                 `PERSON ${String(scene.number).padStart(2, "0")} / 14`;
 
+
             const name = document.createElement("h2");
 
             name.className = "friend-name";
 
             name.textContent = scene.friend.name;
+
 
             const role = document.createElement("p");
 
@@ -753,17 +776,20 @@ function renderScenes() {
 
             role.textContent = scene.friend.role;
 
+
             const message = document.createElement("p");
 
             message.className = "friend-message";
 
             message.textContent = scene.friend.message;
 
+
             const future = document.createElement("p");
 
             future.className = "friend-future";
 
             future.textContent = scene.friend.future;
+
 
             wrapper.appendChild(number);
 
@@ -779,15 +805,16 @@ function renderScenes() {
         }
 
 
-        /* =========================
-           FINAL
-        ========================== */
+        /* =================================
+           FINAL SCENE
+        ================================= */
 
         else if (scene.type === "final") {
 
             const wrapper = document.createElement("div");
 
             wrapper.className = "final-scene";
+
 
             wrapper.innerHTML = `
                 <p class="final-small">
@@ -807,6 +834,7 @@ function renderScenes() {
                 </p>
             `;
 
+
             section.appendChild(wrapper);
         }
 
@@ -824,6 +852,7 @@ function renderScenes() {
 
 let currentScene = 0;
 
+
 function showScene(index) {
 
     if (index < 0) {
@@ -834,36 +863,51 @@ function showScene(index) {
         index = scenes.length - 1;
     }
 
+
     stopCurrentVideo();
 
+
     currentScene = index;
+
 
     const allScenes =
         document.querySelectorAll(".scene");
 
+
     allScenes.forEach(scene => {
+
         scene.classList.remove("active");
+
     });
+
 
     const activeScene =
         document.querySelector(
             `.scene[data-index="${currentScene}"]`
         );
 
+
     if (activeScene) {
+
         activeScene.classList.add("active");
+
     }
+
 
     sceneCounter.textContent =
         `${String(currentScene + 1).padStart(2, "0")} / ${String(scenes.length).padStart(2, "0")}`;
 
+
     backButton.disabled =
         currentScene === 0;
+
 
     nextButton.disabled =
         currentScene === scenes.length - 1;
 
+
     fadeMusic(NORMAL_VOLUME, 500);
+
 }
 
 
@@ -876,17 +920,30 @@ function stopCurrentVideo() {
     const videos =
         document.querySelectorAll(".memory-video");
 
+
     videos.forEach(video => {
 
         if (!video.paused) {
+
             video.pause();
+
         }
 
-        video.currentTime = 0;
+        try {
+
+            video.currentTime = 0;
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
 
     });
 
+
     currentVideo = null;
+
 }
 
 
@@ -898,34 +955,48 @@ function fadeMusic(targetVolume, duration = 500) {
 
     clearInterval(fadeInterval);
 
-    const startVolume = mainMusic.volume;
 
-    const difference = targetVolume - startVolume;
+    const startVolume =
+        mainMusic.volume;
 
-    const steps = Math.max(
-        1,
-        Math.floor(duration / 25)
-    );
+
+    const difference =
+        targetVolume - startVolume;
+
+
+    const steps =
+        Math.max(
+            1,
+            Math.floor(duration / 25)
+        );
+
 
     let step = 0;
+
 
     fadeInterval = setInterval(() => {
 
         step++;
 
+
         mainMusic.volume =
             startVolume +
-            difference * (step / steps);
+            difference *
+            (step / steps);
+
 
         if (step >= steps) {
 
-            mainMusic.volume = targetVolume;
+            mainMusic.volume =
+                targetVolume;
+
 
             clearInterval(fadeInterval);
 
         }
 
     }, 25);
+
 }
 
 
@@ -940,29 +1011,39 @@ async function unlockMemory() {
             .trim()
             .toLowerCase();
 
+
     if (answer !== "september") {
 
         wrongAnswer.textContent =
             "Not quite... try again.";
 
+
         answerInput.classList.add("shake");
 
+
         setTimeout(() => {
+
             answerInput.classList.remove("shake");
+
         }, 400);
 
+
         return;
+
     }
+
 
     wrongAnswer.textContent = "";
 
-    /*
-        IMPORTANT:
-        Music starts HERE because this function
-        is triggered by the user's click.
-    */
 
-    mainMusic.volume = NORMAL_VOLUME;
+    /* =====================================
+       START MUSIC
+       This happens from the user's click.
+    ===================================== */
+
+    mainMusic.volume =
+        NORMAL_VOLUME;
+
 
     try {
 
@@ -981,7 +1062,13 @@ async function unlockMemory() {
 
     }
 
+
+    /* =====================================
+       SHOW STORY
+    ===================================== */
+
     lockScreen.classList.remove("active");
+
 
     setTimeout(() => {
 
@@ -989,11 +1076,13 @@ async function unlockMemory() {
 
         story.classList.remove("hidden");
 
+
         renderScenes();
 
         showScene(0);
 
-    }, 500);
+    }, 450);
+
 }
 
 
@@ -1010,14 +1099,19 @@ musicButton.addEventListener("click", () => {
 
                 musicPlaying = true;
 
-                mainMusic.volume = NORMAL_VOLUME;
+                mainMusic.volume =
+                    NORMAL_VOLUME;
 
-                musicButton.textContent = "♫";
+                musicButton.textContent =
+                    "♫";
 
             })
             .catch(error => {
 
-                console.log(error);
+                console.log(
+                    "Music could not start:",
+                    error
+                );
 
             });
 
@@ -1027,7 +1121,9 @@ musicButton.addEventListener("click", () => {
 
         musicPlaying = false;
 
-        musicButton.textContent = "🔇";
+        musicButton.textContent =
+            "🔇";
+
     }
 
 });
@@ -1042,18 +1138,25 @@ unlockButton.addEventListener(
     unlockMemory
 );
 
+
 nextButton.addEventListener(
     "click",
     () => {
 
-        if (currentScene < scenes.length - 1) {
+        if (
+            currentScene <
+            scenes.length - 1
+        ) {
 
-            showScene(currentScene + 1);
+            showScene(
+                currentScene + 1
+            );
 
         }
 
     }
 );
+
 
 backButton.addEventListener(
     "click",
@@ -1061,7 +1164,9 @@ backButton.addEventListener(
 
         if (currentScene > 0) {
 
-            showScene(currentScene - 1);
+            showScene(
+                currentScene - 1
+            );
 
         }
 
@@ -1095,22 +1200,39 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if (story.classList.contains("hidden")) {
+        if (
+            story.classList.contains("hidden")
+        ) {
+
             return;
+
         }
+
 
         if (event.key === "ArrowRight") {
 
-            if (currentScene < scenes.length - 1) {
-                showScene(currentScene + 1);
+            if (
+                currentScene <
+                scenes.length - 1
+            ) {
+
+                showScene(
+                    currentScene + 1
+                );
+
             }
 
         }
 
+
         if (event.key === "ArrowLeft") {
 
             if (currentScene > 0) {
-                showScene(currentScene - 1);
+
+                showScene(
+                    currentScene - 1
+                );
+
             }
 
         }
@@ -1123,6 +1245,20 @@ document.addEventListener(
    INITIAL STATE
 ========================================= */
 
-mainMusic.volume = NORMAL_VOLUME;
+mainMusic.volume =
+    NORMAL_VOLUME;
 
 backButton.disabled = true;
+
+
+/* =========================================
+   DEBUG CHECK
+========================================= */
+
+console.log(
+    "MEMORY CORE loaded successfully."
+);
+
+console.log(
+    `Total scenes: ${scenes.length}`
+);
