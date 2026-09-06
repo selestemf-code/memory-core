@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <title>MEMORY CORE</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ABSTRACT BACKGROUND -->
+    <div class="background"></div>
+    <div class="grain"></div>
+
+    <!-- MAIN MUSIC -->
+    <audio id="mainMusic" loop preload="auto">
+        <source src="assets/music/main-theme.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- LOCK SCREEN -->
+    <section id="lockScreen" class="screen active">
+        <div class="lock-content">
+
+            <p class="tiny-label">
+                MEMORY CORE // ARCHIVE 2025—2026
+            </p>
+
+            <h1>Before we begin...</h1>
+
+            <p class="question">
+                What month did our story begin?
+            </p>
+
+            <div class="answer-box">
+                <input
+                    type="text"
+                    id="answerInput"
+                    placeholder="Type your answer..."
+                    autocomplete="off"
+                >
+
+                <button id="unlockButton">
+                    UNLOCK MEMORY CORE
+                </button>
+            </div>
+
+            <p id="wrongAnswer" class="wrong-answer"></p>
+
+            <p class="hint">
+                Hint: It was the beginning of everything.
+            </p>
+
+        </div>
+    </section>
+
+
+    <!-- STORY -->
+    <main id="story" class="hidden">
+
+        <div id="sceneContainer"></div>
+
+        <div class="navigation">
+
+            <button id="backButton" class="nav-button">
+                ← BACK
+            </button>
+
+            <div id="sceneCounter">
+                01 / 40
+            </div>
+
+            <button id="nextButton" class="nav-button">
+                NEXT →
+            </button>
+
+        </div>
+
+        <button id="musicButton" class="music-button">
+            ♫
+        </button>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+

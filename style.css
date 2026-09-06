@@ -1,0 +1,739 @@
+```css
+/* =========================================
+   MEMORY CORE
+   STYLE SHEET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #111;
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    z-index: -3;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.48),
+            rgba(0, 0, 0, 0.58)
+        ),
+        url("assets/images/background.jpe");
+
+    background-size: cover;
+    background-position: center;
+
+    transform: scale(1.06);
+
+    animation: slowBackground 22s ease-in-out infinite alternate;
+}
+
+@keyframes slowBackground {
+
+    from {
+        transform: scale(1.06);
+    }
+
+    to {
+        transform: scale(1.14);
+    }
+}
+
+
+/* =========================================
+   GRAIN
+========================================= */
+
+.grain {
+    position: fixed;
+    inset: 0;
+
+    z-index: -2;
+
+    pointer-events: none;
+
+    opacity: 0.07;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,0.6) 1px,
+            transparent 1px
+        );
+
+    background-size: 4px 4px;
+}
+
+
+/* =========================================
+   LOCK SCREEN
+========================================= */
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.lock-content {
+    width: min(700px, 92vw);
+
+    text-align: center;
+
+    padding: 55px 30px;
+
+    background: rgba(0,0,0,0.38);
+
+    border: 1px solid rgba(255,255,255,0.18);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 25px 90px rgba(0,0,0,0.45);
+
+    animation: appear 1.1s ease;
+}
+
+.tiny-label {
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.55;
+
+    margin-bottom: 30px;
+}
+
+.lock-content h1 {
+    font-size: clamp(40px, 8vw, 78px);
+
+    font-weight: normal;
+
+    margin-bottom: 22px;
+}
+
+.question {
+    font-size: clamp(18px, 3vw, 25px);
+
+    font-style: italic;
+
+    opacity: 0.9;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================================
+   ANSWER
+========================================= */
+
+.answer-box {
+    width: min(400px, 100%);
+
+    margin: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.answer-box input {
+    width: 100%;
+
+    padding: 16px;
+
+    background: rgba(255,255,255,0.07);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    outline: none;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 16px;
+}
+
+.answer-box input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.answer-box input:focus {
+    border-color: rgba(255,255,255,0.8);
+}
+
+.answer-box button {
+    padding: 15px;
+
+    background: rgba(255,255,255,0.1);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.45);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.answer-box button:hover {
+    background: rgba(255,255,255,0.22);
+
+    transform: translateY(-2px);
+}
+
+.wrong-answer {
+    min-height: 20px;
+
+    margin-top: 15px;
+
+    color: #ffb5b5;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 13px;
+}
+
+.hint {
+    margin-top: 25px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    opacity: 0.4;
+}
+
+
+/* =========================================
+   STORY
+========================================= */
+
+#story {
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+}
+
+#story.hidden {
+    display: none;
+}
+
+
+/* =========================================
+   SCENES
+========================================= */
+
+.scene {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 70px 25px 100px;
+
+    opacity: 0;
+}
+
+.scene.active {
+    display: flex;
+
+    animation: sceneIn 0.7s ease forwards;
+}
+
+@keyframes sceneIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   CHAPTER LABEL
+========================================= */
+
+.chapter-label {
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.55;
+
+    margin-bottom: 20px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   IMAGE GRID
+========================================= */
+
+.image-grid {
+    width: min(1050px, 95vw);
+
+    height: min(68vh, 650px);
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.image-grid.five {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.memory-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border: 1px solid rgba(255,255,255,0.17);
+
+    box-shadow:
+        0 15px 55px rgba(0,0,0,0.45);
+
+    transition: transform 0.4s ease;
+}
+
+.memory-image:hover {
+    transform: scale(1.015);
+}
+
+
+/* =========================================
+   VIDEO
+========================================= */
+
+.video-container {
+    width: min(900px, 93vw);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.memory-video {
+    width: 100%;
+
+    max-height: 70vh;
+
+    background: #000;
+
+    object-fit: contain;
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow:
+        0 20px 75px rgba(0,0,0,0.55);
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message-scene {
+    width: min(800px, 92vw);
+
+    text-align: center;
+
+    padding: 50px 35px;
+
+    background: rgba(0,0,0,0.28);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 20px 75px rgba(0,0,0,0.4);
+}
+
+.message-title {
+    font-size: clamp(32px, 6vw, 62px);
+
+    font-weight: normal;
+
+    margin-bottom: 25px;
+}
+
+.message-text {
+    font-size: clamp(17px, 2.7vw, 23px);
+
+    line-height: 1.85;
+
+    opacity: 0.9;
+}
+
+
+/* =========================================
+   FRIEND PROFILE
+========================================= */
+
+.friend-profile {
+    width: min(820px, 92vw);
+
+    text-align: center;
+
+    padding: 55px 35px;
+
+    background: rgba(0,0,0,0.32);
+
+    border: 1px solid rgba(255,255,255,0.18);
+
+    backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.45);
+}
+
+.friend-number {
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.45;
+
+    margin-bottom: 25px;
+}
+
+.friend-name {
+    font-size: clamp(42px, 8vw, 80px);
+
+    font-weight: normal;
+
+    margin-bottom: 14px;
+}
+
+.friend-role {
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    opacity: 0.6;
+
+    margin-bottom: 35px;
+}
+
+.friend-message {
+    max-width: 650px;
+
+    margin: auto;
+
+    font-size: clamp(17px, 2.5vw, 22px);
+
+    line-height: 1.85;
+
+    opacity: 0.9;
+}
+
+.friend-future {
+    margin-top: 30px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   FINALE
+========================================= */
+
+.final-scene {
+    width: min(900px, 92vw);
+
+    text-align: center;
+}
+
+.final-small {
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+    opacity: 0.5;
+
+    margin-bottom: 25px;
+}
+
+.final-title {
+    font-size: clamp(48px, 11vw, 125px);
+
+    font-weight: normal;
+
+    letter-spacing: 7px;
+
+    margin-bottom: 30px;
+}
+
+.final-text {
+    font-size: clamp(17px, 3vw, 25px);
+
+    line-height: 1.9;
+
+    opacity: 0.9;
+}
+
+.final-date {
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.45;
+
+    margin-top: 35px;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navigation {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 22px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 25px;
+
+    z-index: 100;
+}
+
+.nav-button {
+    padding: 11px 18px;
+
+    background: rgba(0,0,0,0.35);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.28);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.nav-button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.nav-button:disabled {
+    opacity: 0.2;
+
+    cursor: default;
+}
+
+#sceneCounter {
+    min-width: 75px;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    opacity: 0.55;
+}
+
+
+/* =========================================
+   MUSIC BUTTON
+========================================= */
+
+.music-button {
+    position: fixed;
+
+    right: 22px;
+    top: 22px;
+
+    z-index: 150;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: rgba(0,0,0,0.35);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    font-size: 16px;
+}
+
+.music-button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+button {
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .lock-content {
+        padding: 40px 20px;
+    }
+
+    .image-grid {
+        grid-template-columns: 1fr;
+
+        height: 65vh;
+    }
+
+    .image-grid.five {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-image:nth-child(n+3) {
+        display: none;
+    }
+
+    .message-scene {
+        padding: 35px 22px;
+    }
+
+    .friend-profile {
+        padding: 40px 22px;
+
+        max-height: 72vh;
+
+        overflow-y: auto;
+    }
+
+    .friend-name {
+        font-size: 48px;
+    }
+
+    .navigation {
+        bottom: 14px;
+
+        gap: 12px;
+    }
+
+    .nav-button {
+        padding: 10px 12px;
+    }
+
+    .music-button {
+        top: 14px;
+        right: 14px;
+    }
+}
+
