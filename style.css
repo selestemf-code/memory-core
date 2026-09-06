@@ -1,4 +1,3 @@
-```css
 /* =========================================
    MEMORY CORE
    STYLE SHEET
@@ -17,6 +16,10 @@ body {
     overflow: hidden;
 }
 
+html {
+    background: #111;
+}
+
 body {
     background: #111;
     color: white;
@@ -30,7 +33,10 @@ body {
 
 .background {
     position: fixed;
-    inset: 0;
+    inset: -3%;
+
+    width: 106%;
+    height: 106%;
 
     z-index: -3;
 
@@ -42,9 +48,8 @@ body {
         url("assets/images/background.jpe");
 
     background-size: cover;
-    background-position: center;
-
-    transform: scale(1.06);
+    background-position: center center;
+    background-repeat: no-repeat;
 
     animation: slowBackground 22s ease-in-out infinite alternate;
 }
@@ -52,11 +57,11 @@ body {
 @keyframes slowBackground {
 
     from {
-        transform: scale(1.06);
+        transform: scale(1);
     }
 
     to {
-        transform: scale(1.14);
+        transform: scale(1.07);
     }
 }
 
@@ -90,15 +95,24 @@ body {
 ========================================= */
 
 .screen {
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
 
     display: none;
 
     align-items: center;
     justify-content: center;
 
-    padding: 25px;
+    padding:
+        max(25px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(25px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+
+    overflow: hidden;
 }
 
 .screen.active {
@@ -107,6 +121,7 @@ body {
 
 .lock-content {
     width: min(700px, 92vw);
+    max-height: calc(100vh - 40px);
 
     text-align: center;
 
@@ -117,6 +132,7 @@ body {
     border: 1px solid rgba(255,255,255,0.18);
 
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 
     box-shadow:
         0 25px 90px rgba(0,0,0,0.45);
@@ -140,6 +156,8 @@ body {
     font-size: clamp(40px, 8vw, 78px);
 
     font-weight: normal;
+
+    line-height: 1.05;
 
     margin-bottom: 22px;
 }
@@ -189,6 +207,8 @@ body {
     font-family: Arial, sans-serif;
 
     font-size: 16px;
+
+    border-radius: 0;
 }
 
 .answer-box input::placeholder {
@@ -213,12 +233,18 @@ body {
     font-size: 10px;
 
     letter-spacing: 2px;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 .answer-box button:hover {
     background: rgba(255,255,255,0.22);
 
     transform: translateY(-2px);
+}
+
+.answer-box button:active {
+    transform: translateY(0);
 }
 
 .wrong-answer {
@@ -245,14 +271,50 @@ body {
 
 
 /* =========================================
+   SHAKE EFFECT
+========================================= */
+
+.shake {
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+
+/* =========================================
    STORY
 ========================================= */
 
 #story {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
-    position: relative;
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
 }
 
 #story.hidden {
@@ -277,7 +339,10 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 70px 25px 100px;
+    padding:
+        60px
+        25px
+        90px;
 
     opacity: 0;
 }
@@ -318,6 +383,17 @@ body {
     margin-bottom: 20px;
 
     text-transform: uppercase;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   IMAGE WRAPPER
+========================================= */
+
+.scene > div {
+    max-width: 100%;
 }
 
 
@@ -334,16 +410,22 @@ body {
 
     grid-template-columns: repeat(2, 1fr);
 
+    grid-template-rows: repeat(2, 1fr);
+
     gap: 14px;
 }
 
 .image-grid.five {
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 }
 
 .memory-image {
     width: 100%;
     height: 100%;
+
+    min-width: 0;
+    min-height: 0;
 
     object-fit: cover;
 
@@ -367,16 +449,23 @@ body {
 .video-container {
     width: min(900px, 93vw);
 
+    max-height: calc(100vh - 150px);
+
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
+
+    justify-content: center;
 }
 
 .memory-video {
+    display: block;
+
     width: 100%;
 
+    max-width: 900px;
     max-height: 70vh;
 
     background: #000;
@@ -397,6 +486,10 @@ body {
 .message-scene {
     width: min(800px, 92vw);
 
+    max-height: calc(100vh - 170px);
+
+    overflow: auto;
+
     text-align: center;
 
     padding: 50px 35px;
@@ -406,6 +499,7 @@ body {
     border: 1px solid rgba(255,255,255,0.15);
 
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
     box-shadow:
         0 20px 75px rgba(0,0,0,0.4);
@@ -415,6 +509,8 @@ body {
     font-size: clamp(32px, 6vw, 62px);
 
     font-weight: normal;
+
+    line-height: 1.1;
 
     margin-bottom: 25px;
 }
@@ -435,6 +531,10 @@ body {
 .friend-profile {
     width: min(820px, 92vw);
 
+    max-height: calc(100vh - 160px);
+
+    overflow-y: auto;
+
     text-align: center;
 
     padding: 55px 35px;
@@ -444,6 +544,7 @@ body {
     border: 1px solid rgba(255,255,255,0.18);
 
     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
     box-shadow:
         0 25px 80px rgba(0,0,0,0.45);
@@ -465,6 +566,8 @@ body {
     font-size: clamp(42px, 8vw, 80px);
 
     font-weight: normal;
+
+    line-height: 1.05;
 
     margin-bottom: 14px;
 }
@@ -540,6 +643,8 @@ body {
     letter-spacing: 7px;
 
     margin-bottom: 30px;
+
+    line-height: 1;
 }
 
 .final-text {
@@ -572,7 +677,7 @@ body {
 
     left: 0;
     right: 0;
-    bottom: 22px;
+    bottom: max(14px, env(safe-area-inset-bottom));
 
     display: flex;
 
@@ -583,6 +688,12 @@ body {
     gap: 25px;
 
     z-index: 100;
+
+    pointer-events: none;
+}
+
+.navigation > * {
+    pointer-events: auto;
 }
 
 .nav-button {
@@ -597,6 +708,8 @@ body {
     font-size: 9px;
 
     letter-spacing: 2px;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 .nav-button:hover {
@@ -631,8 +744,8 @@ body {
 .music-button {
     position: fixed;
 
-    right: 22px;
-    top: 22px;
+    right: max(22px, env(safe-area-inset-right));
+    top: max(22px, env(safe-area-inset-top));
 
     z-index: 150;
 
@@ -648,6 +761,8 @@ body {
     border: 1px solid rgba(255,255,255,0.3);
 
     font-size: 16px;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 .music-button:hover {
@@ -687,53 +802,309 @@ button {
 
 @media (max-width: 700px) {
 
-    .lock-content {
-        padding: 40px 20px;
+    .background {
+        inset: -5%;
+        width: 110%;
+        height: 110%;
+
+        background-position: center center;
     }
 
-    .image-grid {
-        grid-template-columns: 1fr;
+    .screen {
+        padding: 18px;
+    }
 
-        height: 65vh;
+    .lock-content {
+        width: 100%;
+        max-width: 500px;
+
+        padding: 35px 18px;
+    }
+
+    .tiny-label {
+        font-size: 8px;
+        letter-spacing: 2.5px;
+        margin-bottom: 22px;
+    }
+
+    .lock-content h1 {
+        font-size: clamp(36px, 11vw, 58px);
+        margin-bottom: 18px;
+    }
+
+    .question {
+        font-size: 18px;
+        margin-bottom: 28px;
+    }
+
+    .answer-box input {
+        padding: 15px 12px;
+    }
+
+    .answer-box button {
+        padding: 15px 10px;
+    }
+
+    .hint {
+        margin-top: 20px;
+    }
+
+
+    /* -------------------------
+       MOBILE SCENES
+    ------------------------- */
+
+    .scene {
+        padding:
+            65px
+            15px
+            80px;
+
+        overflow: hidden;
+    }
+
+
+    /* -------------------------
+       MOBILE IMAGE GRID
+    ------------------------- */
+
+    .image-grid,
+    .image-grid.five {
+        width: min(94vw, 500px);
+
+        height: auto;
+
+        max-height: calc(100vh - 155px);
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        grid-template-rows: repeat(2, 1fr);
+
+        gap: 7px;
     }
 
     .image-grid.five {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-rows: repeat(2, 1fr);
     }
 
-    .memory-image:nth-child(n+3) {
-        display: none;
+    .memory-image {
+        width: 100%;
+
+        height: auto;
+
+        aspect-ratio: 1 / 1;
+
+        object-fit: cover;
     }
+
+
+    /* -------------------------
+       MOBILE VIDEO
+    ------------------------- */
+
+    .video-container {
+        width: 94vw;
+
+        max-height: calc(100vh - 145px);
+    }
+
+    .memory-video {
+        width: 100%;
+
+        max-height: calc(100vh - 170px);
+    }
+
+
+    /* -------------------------
+       MOBILE MESSAGE
+    ------------------------- */
 
     .message-scene {
-        padding: 35px 22px;
-    }
+        width: 94vw;
 
-    .friend-profile {
-        padding: 40px 22px;
+        max-height: calc(100vh - 145px);
 
-        max-height: 72vh;
+        padding: 30px 18px;
 
         overflow-y: auto;
     }
 
-    .friend-name {
-        font-size: 48px;
+    .chapter-label {
+        font-size: 7px;
+
+        letter-spacing: 2.5px;
+
+        margin-bottom: 14px;
     }
 
-    .navigation {
-        bottom: 14px;
+    .message-title {
+        font-size: clamp(30px, 9vw, 48px);
 
-        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .message-text {
+        font-size: 16px;
+
+        line-height: 1.65;
+    }
+
+
+    /* -------------------------
+       MOBILE FRIEND PROFILE
+    ------------------------- */
+
+    .friend-profile {
+        width: 94vw;
+
+        max-height: calc(100vh - 145px);
+
+        padding: 32px 18px;
+
+        overflow-y: auto;
+    }
+
+    .friend-number {
+        font-size: 8px;
+
+        letter-spacing: 3px;
+
+        margin-bottom: 18px;
+    }
+
+    .friend-name {
+        font-size: clamp(38px, 12vw, 58px);
+
+        margin-bottom: 12px;
+    }
+
+    .friend-role {
+        font-size: 9px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 24px;
+    }
+
+    .friend-message {
+        font-size: 16px;
+
+        line-height: 1.7;
+    }
+
+    .friend-future {
+        font-size: 8px;
+
+        letter-spacing: 1.5px;
+
+        margin-top: 24px;
+    }
+
+
+    /* -------------------------
+       MOBILE FINALE
+    ------------------------- */
+
+    .final-scene {
+        width: 94vw;
+    }
+
+    .final-small {
+        font-size: 8px;
+
+        letter-spacing: 3px;
+    }
+
+    .final-title {
+        font-size: clamp(45px, 15vw, 75px);
+
+        letter-spacing: 3px;
+    }
+
+    .final-text {
+        font-size: 17px;
+    }
+
+
+    /* -------------------------
+       MOBILE NAV
+    ------------------------- */
+
+    .navigation {
+        bottom: max(10px, env(safe-area-inset-bottom));
+
+        gap: 8px;
     }
 
     .nav-button {
-        padding: 10px 12px;
+        padding: 9px 10px;
+
+        font-size: 8px;
+
+        letter-spacing: 1.5px;
+    }
+
+    #sceneCounter {
+        min-width: 62px;
+
+        font-size: 8px;
+
+        letter-spacing: 2px;
     }
 
     .music-button {
-        top: 14px;
-        right: 14px;
+        top: max(12px, env(safe-area-inset-top));
+        right: max(12px, env(safe-area-inset-right));
+
+        width: 38px;
+        height: 38px;
     }
 }
 
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .lock-content {
+        padding: 28px 14px;
+    }
+
+    .tiny-label {
+        font-size: 7px;
+    }
+
+    .question {
+        font-size: 16px;
+    }
+
+    .image-grid,
+    .image-grid.five {
+        width: 95vw;
+
+        gap: 5px;
+    }
+
+    .message-scene,
+    .friend-profile {
+        width: 95vw;
+    }
+
+    .navigation {
+        gap: 5px;
+    }
+
+    .nav-button {
+        padding: 8px 8px;
+    }
+
+    #sceneCounter {
+        min-width: 55px;
+    }
+}
