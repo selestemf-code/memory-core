@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#111111">
     <title>MEMORY CORE</title>
 
@@ -22,6 +22,7 @@
 
     <!-- LOCK SCREEN -->
     <section id="lockScreen" class="screen active">
+
         <div class="lock-content">
 
             <p class="tiny-label">
@@ -35,16 +36,20 @@
             </p>
 
             <div class="answer-box">
+
                 <input
                     type="text"
                     id="answerInput"
                     placeholder="Type your answer..."
                     autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
                 >
 
-                <button id="unlockButton">
+                <button id="unlockButton" type="button">
                     UNLOCK MEMORY CORE
                 </button>
+
             </div>
 
             <p id="wrongAnswer" class="wrong-answer"></p>
@@ -54,6 +59,7 @@
             </p>
 
         </div>
+
     </section>
 
 
@@ -64,7 +70,7 @@
 
         <div class="navigation">
 
-            <button id="backButton" class="nav-button">
+            <button id="backButton" class="nav-button" type="button">
                 ← BACK
             </button>
 
@@ -72,13 +78,18 @@
                 01 / 40
             </div>
 
-            <button id="nextButton" class="nav-button">
+            <button id="nextButton" class="nav-button" type="button">
                 NEXT →
             </button>
 
         </div>
 
-        <button id="musicButton" class="music-button">
+        <button
+            id="musicButton"
+            class="music-button"
+            type="button"
+            aria-label="Toggle music"
+        >
             ♫
         </button>
 
